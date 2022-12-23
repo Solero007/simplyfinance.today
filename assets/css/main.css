@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply font-jakarta;
+    }
+    body {
+        @apply text-black/90;
+    }
+
+    #__layout,
+    #__nuxt {
+        @apply h-full;
+    }
+}
+
+@layer components {
+    .btn {
+        @apply px-9 py-3 lg:py-4 rounded-md block leading-none transition delay-75 hover:ring-2 ring-offset-2 font-semibold ring-transparent text-slate-900 text-center;
+    }
+
+    .btn-lg {
+        @apply px-9 py-5 rounded-lg block text-lg leading-none transition delay-75 hover:ring-2 ring-offset-2 font-semibold ring-transparent text-slate-900;
+    }
+
+    .btn-dark {
+        @apply text-white bg-slate-900;
+    }
+
+    input[type='text'],
+    input[type='password'],
+    input[type='email'],
+    input[type='number'],
+    input[type='url'],
+    input[type='date'],
+    input[type='datetime-local'],
+    input[type='month'],
+    input[type='week'],
+    input[type='time'],
+    input[type='search'],
+    input[type='tel'] {
+        @apply w-full relative rounded placeholder:text-slate-300 font-semibold border-slate-300 sm:border-slate-300 focus:ring-accent-500 focus:border-accent-500 text-lg sm:text-xl py-3 sm:py-3.5;
+        &.hasErrors {
+            @apply border-red-500 focus:border-red-500 ring-red-500;
+        }
+    }
+
+    .checkbox {
+        @apply h-6 w-6 rounded border-slate-300 text-accent-500 focus:ring-accent-500;
+    }
+
+    .btn-submit {
+        @apply bg-accent-600 hover:bg-accent-500 transition-all rounded py-3 sm:py-3.5 font-bold text-xl text-white;
+    }
+
+    .valid {
+        @apply !border-accent-500 bg-accent-50 bg-opacity-10;
+    }
+
+    select.form-select {
+        @apply w-full block rounded-md font-semibold text-base py-3 xl:text-lg border-2 bg-white border-slate-300  hover:outline-none ring-accent-400   hover:ring-2 ring-offset-2 placeholder:text-slate-300;
+        &.hasErrors {
+            @apply border-red-500 focus:border-red-500 ring-red-500;
+        }
+    }
+
+    textarea.form-textarea {
+        @apply w-full block rounded-md font-semibold text-base py-3 xl:text-lg border-2 bg-white border-slate-300  hover:outline-none ring-accent-400   hover:ring-2 ring-offset-2 placeholder:text-slate-300;
+        &.hasErrors {
+            @apply border-red-500 focus:border-red-500 ring-red-500;
+        }
+    }
+}
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid rgb(17, 35, 230);
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: rgb(17, 35, 230) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.x {
+    background: repeating-linear-gradient(90deg, dimgrey 0, dimgrey 1ch, transparent 0, transparent 2ch) 0 100%/17ch 2px no-repeat;
+    letter-spacing: 1ch;
+}

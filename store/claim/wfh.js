@@ -52,12 +52,43 @@ export default {
                 }
             }
         },
+        updateSelfEmployedStatus(state, bool = false) {
+            for (let claim of state.claims) {
+                claim.selfEmployed = bool;
+            }
+        },
     },
     getters: {
         getField,
     },
     actions: {
-        async submitClaim({ rootState }) {},
+        async submitClaim({ rootState, state, commit }, externalId) {
+            if (!externalId) {
+                return {
+                    status: 404,
+                    msg: `No Id ${externalId}`,
+                };
+            }
+
+            let client = rootState.client;
+
+            commit('updateSelfEmployedStatus', client.details.selfEmployed);
+
+            let result;
+            let payload = {
+                externalId,
+                claims: state.claims,
+            };
+
+            try {
+                result = await this.$api.post(this.$config.TAX_API_URL + `/client/wfh`, payload);
+            } catch (error) {
+                console.log(error);
+                return error.response;
+            }
+
+            return result;
+        },
         setIsSameCompany({ state, commit }, bool) {
             commit('setIsSameCompany', bool);
         },

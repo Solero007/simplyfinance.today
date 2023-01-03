@@ -57,38 +57,7 @@ export default {
         ...mapFields('client', ['details', 'details.nationalInsurance', 'details.selfEmployed']),
         ...mapFields('claim/wfh', ['isSameCompany']),
         ...mapMultiRowFields('claim/wfh', ['claims']),
-    },
-    watch: {
-        isSameCompany: function (n, o) {
-            this.$store.dispatch('claim/wfh/setIsSameCompany', n);
-        },
-    },
-    created() {},
-    methods: {
-        async submit() {
-            this.$nuxt.$emit('loader', true);
-            setTimeout(async () => {
-                try {
-                    const result = await this.$store.dispatch('client/submitClient');
-                    switch (result.status) {
-                        case 200:
-                            if (result.data?.selfEmployed) {
-                                this.$router.push({ name: 'decision-self-id', params: { id: result.data.id } });
-                            } else {
-                                this.$router.push({ name: 'decision-id', params: { id: result.data.id } });
-                            }
-
-                            break;
-                        default:
-                            break;
-                    }
-                    this.$nuxt.$emit('loader', false);
-                } catch (error) {
-                    console.log(error);
-                    this.$nuxt.$emit('loader', false);
-                }
-            }, 5000);
-        },
-    },
+    }, 
+    created() {}, 
 };
 </script>

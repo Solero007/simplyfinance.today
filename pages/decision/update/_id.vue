@@ -18,7 +18,6 @@
             </section>
         </div>
         <div v-else-if="!$fetchState.pending && isValid">
-            
             <section class="bg-black relative">
                 <!-- <div class="absolute inset-0 -z-0 after:bg-black after:absolute after:inset-0 after:opacity-70 after:sm:opacity-0">
                 <img src="https://theaccountancycloud.com/assets/images/sos-header-bg.webp" class="object-center object-cover w-full h-full" alt="" />
@@ -29,9 +28,11 @@
                             <div class="space-y-3 sm:space-y-4">
                                 <img src="https://workfromhometaxrelief.co.uk/duke/assets/images/logo.png" class="w-[130px] mx-auto" alt="" />
                                 <div class="space-y-4 sm:space-y-2">
-                                    <div class="space-y-1"> 
+                                    <div class="space-y-1">
                                         <p class="text-xl sm:text-3xl md:text-4xl font-bold tracking-tight leading-snug md:leading-tight">
-                                            <span class="capitalize" v-if="data.client?.firstName" v-html="data.client.firstName" /> To <span class="text-accent-300">get your tax relief of £624</span>, we just need your permission to start preparing your documents. All that is needed is your signature below to claim.
+                                            <span class="capitalize" v-if="data.client?.firstName" v-html="data.client.firstName" /> To
+                                            <span class="text-accent-300">get your tax relief of £624</span>, we just need your permission to start preparing your documents. All that is needed is your
+                                            signature below to claim.
                                         </p>
                                     </div>
                                     <div class="space-y-1 text-xs sm:text-base">
@@ -105,7 +106,7 @@
                                                 <small><span class="hidden lg:block">(Please use your mouse)</span> <span class="lg:hidden">(please use your finger)</span></small>
                                             </p>
                                         </div>
-                                        <FormSignature :fullName="`${data.client.firstName} ${data.client.lastName}`" />
+                                        <FormSignature v-model="signature" :fullName="`${data.client.firstName} ${data.client.lastName}`" />
                                     </div>
 
                                     <div class="bg-slate-50 rounded-xl p-6 text-sm">
@@ -199,7 +200,6 @@
 
 <script>
 import { mapFields, mapMultiRowFields } from 'vuex-map-fields';
-import axios from '~/plugins/axios';
 
 export default {
     name: 'IndexPage',
@@ -234,11 +234,30 @@ export default {
             isValid: true,
             isLegalsOpen: false,
             legalContent: null,
+            signature: {
+                isEmpty: false,
+            },
         };
     },
     watch: {},
     methods: {
-        async submit() {},
+        async submit() {
+            try {
+                const result = await this.$store.dispatch('client/submitSignature', {
+                    id: this.$route.params.id || null,
+                    signature: this.signature.data,
+                });
+
+                switch (result.status) {
+                    case 200:
+                        await this.$store.dispatch('claim/wfh/submitClaim', this.$route.params.id);
+                        this.$router.push({ name: 'complete', params: { id: this.$route.params.id } });
+                        break;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
         async showLegalBox() {
             this.isLegalsOpen = true;
         },

@@ -109,7 +109,7 @@
                                     >, we just need your permission to start preparing your documents. All that is needed is your signature below to claim.
                                 </p>
                             </div>
-                            <Form ref="start" name="start" key="start" v-slot="{ busy }" :submit="submit">
+                            <Form ref="confirm" name="confirm" key="confirm" v-slot="{ busy }" :submit="submit">
                                 <div class="space-y-6">
                                     <div class="space-y-2">
                                         <div class="flex gap-3 w-full">
@@ -118,7 +118,7 @@
                                                 <small><span class="hidden lg:block">(Please use your mouse)</span> <span class="lg:hidden">(please use your finger)</span></small>
                                             </p>
                                         </div>
-                                        <FormSignature :fullName="`${data.client.firstName} ${data.client.lastName}`" />
+                                        <FormSignature v-model="signature" :fullName="`${data.client.firstName} ${data.client.lastName}`" />
                                     </div>
 
                                     <div class="bg-slate-50 rounded-xl p-6 text-sm">
@@ -182,6 +182,7 @@
                         </div>
                     </div>
                 </div>
+                {{ signature }}
             </section>
         </div>
         <div v-else>
@@ -247,11 +248,30 @@ export default {
             isValid: true,
             isLegalsOpen: false,
             legalContent: null,
+            signature: {
+                isEmpty: false,
+            },
         };
     },
     watch: {},
     methods: {
-        async submit() {},
+        async submit() {
+            try {
+                const result = await this.$store.dispatch('client/submitSignature', {
+                    id: this.$route.params.id || null,
+                    signature: this.signature.data,
+                });
+
+                switch (result.status) {
+                    case 200:
+                        await this.$store.dispatch('claim/wfh/submitClaim', this.$route.params.id);
+                        this.$router.push({ name: 'complete', params: { id: this.$route.params.id } });
+                        break;
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
         async showLegalBox() {
             this.isLegalsOpen = true;
         },

@@ -171,7 +171,22 @@ export default {
 
             return result;
         },
-        async submitSignature({ rootState, state, commit }) {},
+        async submitSignature({ rootState, state, commit }, data) {
+            if (Object.keys(data).length == 0) {
+                return {
+                    status: 404,
+                    msg: 'No Signature',
+                };
+            }
+
+            try {
+                return await this.$api.post(this.$config.TAX_API_URL + `/client/signature/${data.id}`, {
+                    signature: data.signature,
+                });
+            } catch (error) {
+                return error.response;
+            }
+        },
         async getClient({ rootState, state, commit }) {},
         async doNotPost({ state, commit }) {},
         async getCompanyDetails({ commit, state }, id = null) {

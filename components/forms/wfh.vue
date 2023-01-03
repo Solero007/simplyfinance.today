@@ -86,12 +86,7 @@ export default {
                     const result = await this.$store.dispatch('client/submitClient');
                     switch (result.status) {
                         case 200:
-                            if (result.data?.selfEmployed) {
-                                this.$router.push({ name: 'decision-self-id', params: { id: result.data.id } });
-                            } else {
-                                this.$router.push({ name: 'decision-id', params: { id: result.data.id } });
-                            }
-
+                            this.$emit('complete', result);
                             break;
                         default:
                             break;

@@ -1636,7 +1636,7 @@ extend('isProfanity', {
 
         return !check.includes(value.toLowerCase());
     },
-    message: 'Company not accepted',
+    message: 'Content not accepted',
 });
 
 Object.keys(rules).forEach((rule) => {

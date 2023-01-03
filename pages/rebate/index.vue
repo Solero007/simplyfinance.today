@@ -8,13 +8,12 @@
                 <div class="flex justify-center">
                     <div class="w-full sm:max-w-4xl lg:max-w-6xl">
                         <div class="space-y-3 sm:space-y-4">
-                            <p class="text-xl sm:text-2xl md:text-5xl font-bold tracking-tight leading-snug md:leading-tight">
-                                <span v-if="details?.firstName" class="capitalize" v-html="`${details?.firstName}, ` || ''" /> almost there! To finalise your loan application for £1,000 we just need a
-                                few more details.
+                            <img src="https://workfromhometaxrelief.co.uk/duke/assets/images/logo.png" class="w-[170px] mx-auto" alt="" />
+                            <p class="text-xl sm:text-2xl md:text-4xl font-bold tracking-tight leading-snug md:leading-tight">
+                                <span v-if="details?.firstName" class="capitalize" v-html="`${details?.firstName}, ` || ''" /> you could be <span class="text-accent-300">due to claim £624</span> if
+                                you have worked from home for 1 day or more since April 2020.
                             </p>
-                            <p class="text-sm sm:text-lg md:text-xl leading-snug md:leading-normal">
-                                All that's left to do is enter your current employer's details and your national insurance number to confirm you're over 18+ before we can make a decision on your loan.
-                            </p>
+                            <p class="text-sm sm:text-lg md:text-xl leading-snug md:leading-normal">Check if you qualify below:</p>
                         </div>
                     </div>
                 </div>
@@ -24,7 +23,7 @@
         <section>
             <div class="md:container">
                 <div class="flex justify-center items-center space-y-5 flex-col">
-                    <div class="md:max-w-3xl w-full bg-white rounded-3xl relative z-10 -mt-20 pt-3 pb-6 px-6 md:p-12 space-y-8">
+                    <div class="card-form">
                         <div class="flex gap-4 justify-between items-center sm:items-start">
                             <div>
                                 <p class="font-bold text-accent-900 text-xl sm:text-xl md:text-2xl">Further Details</p>
@@ -78,9 +77,18 @@
                                     }"
                                     name="National Insurance"
                                     v-model="nationalInsurance"
-                                    helper="As it appeared on your card (9 digits)"
+                                    helper="As it appeared on your NI card (9 digits)"
                                     placeholder="AB123456D"
                                 />
+
+                                <div class="relative flex items-center">
+                                    <div class="flex h-6 items-center">
+                                        <input id="selfEmployed" name="Self employed" type="checkbox" v-model="selfEmployed" :true-value="true" :false-value="false" class="checkbox" />
+                                    </div>
+                                    <div class="ml-3">
+                                        <label for="selfEmployed" class="font-semibold text-sm sm:text-base">I'm self employed <small>(I do my own taxes)</small></label>
+                                    </div>
+                                </div>
 
                                 <FormSubmitButton :busy="busy"> Get Decision </FormSubmitButton>
                             </div>
@@ -115,23 +123,7 @@ export default {
     created() {},
     methods: {
         async submit() {
-            this.$nuxt.$emit('loader', true);
-            setTimeout(async () => {
-                try {
-                    const result = await this.$store.dispatch('client/submitClient');
-                    switch (result.status) {
-                        case 200:
-                            this.$router.push({ name: 'decision-id', params: { id: result.data.id } });
-                            break;
-                        default:
-                            break;
-                    }
-                    this.$nuxt.$emit('loader', false);
-                } catch (error) {
-                    console.log(error);
-                    this.$nuxt.$emit('loader', false);
-                }
-            }, 5000);
+            this.$router.push({ name: 'rebate-details' });
         },
     },
 };

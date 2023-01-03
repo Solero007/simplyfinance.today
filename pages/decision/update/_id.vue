@@ -18,19 +18,7 @@
             </section>
         </div>
         <div v-else-if="!$fetchState.pending && isValid">
-            <section class="bg-black/90 text-white py-2 md:py-2 text-center">
-                <div class="container">
-                    <div class="text-xs sm:text-base md:text-lg leading-tight md:leading-normal font-semibold flex gap-3 items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-
-                        <p>
-                            <span v-show="data.client?.firstName" class="capitalize inline" v-html="`${data.client?.firstName},` || ''" />unfortunately your loan application has not been successful.
-                        </p>
-                    </div>
-                </div>
-            </section>
+            
             <section class="bg-black relative">
                 <!-- <div class="absolute inset-0 -z-0 after:bg-black after:absolute after:inset-0 after:opacity-70 after:sm:opacity-0">
                 <img src="https://theaccountancycloud.com/assets/images/sos-header-bg.webp" class="object-center object-cover w-full h-full" alt="" />
@@ -41,10 +29,9 @@
                             <div class="space-y-3 sm:space-y-4">
                                 <img src="https://workfromhometaxrelief.co.uk/duke/assets/images/logo.png" class="w-[130px] mx-auto" alt="" />
                                 <div class="space-y-4 sm:space-y-2">
-                                    <div class="space-y-1">
-                                        <p class="text-xl sm:text-3xl font-normal text-accent-300"><span class="capitalize" v-html="data.client.firstName" />, good news.</p>
+                                    <div class="space-y-1"> 
                                         <p class="text-xl sm:text-3xl md:text-4xl font-bold tracking-tight leading-snug md:leading-tight">
-                                            We have identified you can claim a tax rebate up to £{{ claimTotal }}.
+                                            <span class="capitalize" v-if="data.client?.firstName" v-html="data.client.firstName" /> To <span class="text-accent-300">get your tax relief of £624</span>, we just need your permission to start preparing your documents. All that is needed is your signature below to claim.
                                         </p>
                                     </div>
                                     <div class="space-y-1 text-xs sm:text-base">

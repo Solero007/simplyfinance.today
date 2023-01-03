@@ -6,7 +6,7 @@ const getDefaultState = () => {
             {
                 meta: {
                     label: 'Enter the name of the company you worked for in the tax year 2021/2022',
-                    placeholder: '',
+                    placeholder: 'e.g. NHS',
                     name: 'Company name 2021/2022',
                     description: '6th April 2021 to 5th April 2022',
                     show: true,
@@ -20,7 +20,7 @@ const getDefaultState = () => {
             {
                 meta: {
                     label: 'Enter the name of the company you worked for in the tax year 2020/2021',
-                    placeholder: '',
+                    placeholder: 'e.g. NHS',
                     name: 'Company name 2020/2021',
                     description: '6th April 2020 to 5th April 2021',
                     show: true,

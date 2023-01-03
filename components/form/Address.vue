@@ -7,8 +7,23 @@
                     <FormUIOptional v-if="optional" />
                 </div>
                 <div class="relative xl:w-auto">
-                    <input v-model="manualPostcode" :id="id" :type="type" class="form-control form-control-lg uppercase font-extrabold" :class="{ hasErrors: errors.length > 0 }" :placeholder="placeholder" :value="innerValue" v-bind="$attrs" />
-                    <button @click.prevent="getAddress()" :disabled="busy" class="btn bg-slate-900 text-white lg:absolute w-full lg:w-auto mt-2 lg:mt-0 lg:right-2 lg:top-2 lg:bottom-2 leading-none font-semibold text-base px-4 lg:px-4 lg:py-0">Search</button>
+                    <input
+                        v-model="manualPostcode"
+                        :id="id"
+                        :type="type"
+                        class="form-control form-control-lg uppercase font-extrabold"
+                        :class="{ hasErrors: errors.length > 0 }"
+                        :placeholder="placeholder"
+                        :value="innerValue"
+                        v-bind="$attrs"
+                    />
+                    <button
+                        @click.prevent="getAddress()"
+                        :disabled="busy"
+                        class="btn bg-slate-900 text-white lg:absolute w-full lg:w-auto mt-2 lg:mt-0 lg:right-2 lg:top-2 lg:bottom-2 leading-none font-semibold text-base px-4 lg:px-4 lg:py-0"
+                    >
+                        Search
+                    </button>
                 </div>
                 <FormUIValidationError v-if="errors.length > 0" :text="errors[0]" />
             </ValidationProvider>
@@ -101,19 +116,29 @@ export default {
 
             this.selectedIndex = null;
 
-            let result = await this.$axios.post('/api/postcode', {
-                postcode: this.manualPostcode.replace(/\s/g, ''),
-            });
+            let result; 
 
-            let hasAddress = Object.keys(result.data).length > 0;
-
-            if (!hasAddress) {
-                this.list = [];
-                this.$refs['addressForm'].setErrors({ postcode: 'No address found' });
-                return;
+            try {
+                result = await axios.get(this.$config.TAX_API_URL + '/postcode?postcode=' + this.manualPostcode.replace(/\s/g, ''));
+            } catch (error) {
+                console.log(error);
             }
-            this.postcodeData = result.data;
-            this.list = result.data.addresses;
+
+            switch (result.status) {
+                case 200:
+                    let hasAddress = Object.keys(result.data).length > 0;
+
+                    if (!hasAddress) {
+                        this.list = [];
+                        this.$refs['addressForm'].setErrors({ postcode: 'No address found' });
+                        return;
+                    }
+                    this.postcodeData = result.data;
+                    this.list = result.data.addresses;
+                    break;
+                default:
+                    break;
+            }
         },
 
         selectAddress(event) {

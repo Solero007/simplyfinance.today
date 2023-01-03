@@ -53,6 +53,8 @@ const getDefaultState = () => {
             selfEmployed: false,
             industry: null,
             nationalInsurance: null,
+            terms: false,
+            privacy: false,
         },
         address: [],
     };
@@ -153,6 +155,8 @@ export default {
                 userAgent: state.header.userAgent,
                 nationalInsurance: state.details.nationalInsurance,
                 dob,
+                selfEmployed: state.details.selfEmployed,
+                industry: '',
                 terms: true,
                 privacy: true,
                 addresses: [...state.address],

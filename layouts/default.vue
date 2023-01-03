@@ -2,7 +2,7 @@
     <div>
         <header class="py-3 sm:py-4">
             <div class="container flex justify-between items-center">
-                <nuxt-link to="/"> <img src="https://theaccountancycloud.com/cms-assets/global/accountancy-cloud.svg" class="w-[140px] sm:w-[220px] h-auto" alt="" /></nuxt-link>
+                <nuxt-link to="/"> <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.jpg" class="w-[140px] sm:w-[220px] h-auto" alt="" /></nuxt-link>
                 <div>
                     <img src="https://www.realityfinance.com/media/1186/blackplusyellow5stars.png" class="w-[70px] sm:w-[100px] h-auto" alt="" />
                 </div>

@@ -43,7 +43,7 @@
     input[type='time'],
     input[type='search'],
     input[type='tel'] {
-        @apply w-full relative rounded placeholder:text-slate-300 font-semibold border-slate-300 sm:border-slate-300 focus:ring-accent-500 focus:border-accent-500 text-lg sm:text-xl py-3 sm:py-3.5;
+        @apply w-full relative rounded placeholder:text-slate-200 px-3.5 font-semibold border-slate-300 sm:border-slate-300 focus:ring-accent-500 focus:border-accent-500 text-lg sm:text-xl py-3 sm:py-3.5;
         &.hasErrors {
             @apply border-red-500 focus:border-red-500 ring-red-500;
         }
@@ -54,7 +54,7 @@
     }
 
     .btn-submit {
-        @apply bg-accent-600 hover:bg-accent-500 transition-all rounded py-3 sm:py-3.5 font-bold text-xl text-white;
+        @apply bg-accent-600 hover:bg-accent-500 transition-all rounded-lg py-3 sm:py-3.5 font-bold text-xl text-white;
     }
 
     .valid {
@@ -66,6 +66,10 @@
         &.hasErrors {
             @apply border-red-500 focus:border-red-500 ring-red-500;
         }
+    }
+
+    .card-form {
+        @apply md:max-w-3xl w-full bg-white rounded-3xl relative z-10 -mt-20 pt-3 pb-6 px-6 md:p-9 space-y-4 sm:space-y-8;
     }
 
     textarea.form-textarea {

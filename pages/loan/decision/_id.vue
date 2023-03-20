@@ -168,7 +168,7 @@
                                             </div>
                                             <span class="content space-y-4" v-html="legalContent" />
                                         </div>
-                                    </div>
+                                     </div>
 
                                     <FormSubmitButton :busy="busy"> Get Decision </FormSubmitButton>
 

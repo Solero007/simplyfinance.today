@@ -1,17 +1,17 @@
 <template>
     <div>
-        <header class="py-3 sm:py-4">
+        <header class="py-4 sm:py-5">
             <div class="container flex justify-between items-center">
-                <nuxt-link to="/"> <img src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo3.jpg" class="w-[140px] sm:w-[220px] h-auto" alt="" /></nuxt-link>
+                <nuxt-link to="#"> <img src="~/assets/images/logo.png" class="w-[210px] sm:w-[300px] h-auto" alt="" /></nuxt-link>
                 <div>
-                    <img src="https://www.realityfinance.com/media/1186/blackplusyellow5stars.png" class="w-[70px] sm:w-[100px] h-auto" alt="" />
+                    <img src="https://www.realityfinance.com/media/1186/blackplusyellow5stars.png" class="w-[60px] sm:w-[90px] h-auto" alt="" />
                 </div>
             </div>
         </header>
         <Nuxt />
-        <footer class="py-12 text-xs sm:text-base">
+        <footer class="py-8 text-xs sm:text-base">
             <div class="container text-center space-y-3 sm:space-y-6">
-                <p class="font-semibold">
+                <p class="font-semibold text-base sm:text-xl leading-tight">
                     © 2022 Get Fast Loans. All rights reserved. Get Fast Loans is a registered trading name of Duke Leads FZCO, which is an Introducer Appointed Representative of T Dot UK Limited,
                     registered under FRN 955804.
                 </p>

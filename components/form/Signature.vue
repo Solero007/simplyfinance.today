@@ -21,7 +21,7 @@
             </div>
 
             <div>
-                <button type="button" @click="undo" class="text-sm py-2 px-4 font-semibold rounded-lg bg-slate-100">Clear</button>
+                <button type="button" @click="undo" class="text-sm py-2 px-4 font-semibold rounded-lg bg-slate-100">Undo</button>
             </div>
         </div>
     </div>

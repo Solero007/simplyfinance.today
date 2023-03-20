@@ -32,8 +32,9 @@ export default ({ app, store, $config }, inject) => {
                 // var params = qs.stringify(options);
                 // if (options) url += `?${params}`;
                 // console.log(url);
-
+              
                 var response = await axiosInstance.get(url, { params });
+ 
 
                 if (response.status === 200) {
                     return { status: response.status, data: response.data };

@@ -9,7 +9,7 @@
         @apply font-jakarta;
     }
     body {
-        @apply text-black/90;
+        @apply text-accent-900;
     }
 
     #__layout,
@@ -43,7 +43,7 @@
     input[type='time'],
     input[type='search'],
     input[type='tel'] {
-        @apply w-full relative rounded placeholder:text-slate-200 px-3.5 font-semibold border-slate-300 sm:border-slate-300 focus:ring-accent-500 focus:border-accent-500 text-lg sm:text-xl py-3 sm:py-3.5;
+        @apply w-full relative rounded placeholder:text-slate-200 px-3.5 font-semibold border-slate-400/80 sm:border-slate-400/80 focus:ring-accent-500 focus:border-accent-500 text-lg sm:text-xl py-3 sm:py-3.5;
         &.hasErrors {
             @apply border-red-500 focus:border-red-500 ring-red-500;
         }
@@ -62,7 +62,7 @@
     }
 
     select.form-select {
-        @apply w-full block rounded-md font-semibold text-base py-3 xl:text-lg border-2 bg-white border-slate-300  hover:outline-none ring-accent-400   hover:ring-2 ring-offset-2 placeholder:text-slate-300;
+        @apply w-full relative rounded placeholder:text-slate-200 px-3.5 font-semibold border-slate-400/80 sm:border-slate-400/80 focus:ring-accent-500 focus:border-accent-500 text-lg sm:text-xl py-3 sm:py-3.5;
         &.hasErrors {
             @apply border-red-500 focus:border-red-500 ring-red-500;
         }

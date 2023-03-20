@@ -1,6 +1,20 @@
 <template>
     <Form ref="start" name="start" key="start" v-slot="{ busy }" :submit="submit">
         <div class="space-y-6">
+            <FormTextbox
+                inputClass="!text-3xl !font-bold !text-center !tracking-widest !uppercase"
+                label="National Insurance Number"
+                vid="nationalInsurance"
+                :rules="{
+                    required: true,
+                    regex: /^[A-CEGHJ-PR-TW-Za-ceghj-pr-tw-z]{1}[A-CEGHJ-NPR-TW-Za-ceghj-pr-tw-z]{1}[0-9]{6}[A-DFMa-dfm]{1}$/,
+                }"
+                name="National Insurance"
+                v-model="nationalInsurance"
+                helper="Please double check your national insurance number is correct"
+                placeholder="AB123456D"
+            />
+
             <div class="space-y-4">
                 <div v-for="(item, i) of claims" :key="item.period">
                     <FormTextbox
@@ -34,18 +48,16 @@
                 </div>
             </div>
 
-            <FormTextbox
-                inputClass="!text-3xl !font-bold !text-center !tracking-widest !uppercase"
-                label="National Insurance Number"
-                vid="nationalInsurance"
+            <FormSelectBox
                 :rules="{
-                    required: true,
-                    regex: /^[A-CEGHJ-PR-TW-Za-ceghj-pr-tw-z]{1}[A-CEGHJ-NPR-TW-Za-ceghj-pr-tw-z]{1}[0-9]{6}[A-DFMa-dfm]{0,1}$/,
+                    required: false,
                 }"
-                name="National Insurance"
-                v-model="nationalInsurance"
-                helper="As it appeared on your NI card (9 digits)"
-                placeholder="AB123456D"
+                name="Employment industry"
+                v-model="selectedInd"
+                :value="selectedInd"
+                label="Employment Industry"
+                :options="employmentCategories"
+                helper="Please select the industry closest to your profession"
             />
 
             <div class="relative flex items-center">
@@ -57,16 +69,18 @@
                 </div>
             </div>
 
-            <FormSubmitButton :busy="busy"> Get Decision </FormSubmitButton>
+            <FormSubmitButton :busy="busy">Get Decision</FormSubmitButton>
         </div>
     </Form>
 </template>
 
 <script>
+import { off } from 'process';
 import { mapFields, mapMultiRowFields } from 'vuex-map-fields';
 
 export default {
     name: 'IndexPage',
+    fetchOnServer: false,
     computed: {
         ...mapFields('client', ['details', 'details.nationalInsurance', 'details.selfEmployed']),
         ...mapFields('claim/wfh', ['isSameCompany']),
@@ -77,7 +91,27 @@ export default {
             this.$store.dispatch('claim/wfh/setIsSameCompany', n);
         },
     },
+    async fetch() {
+        const empCat = await this.$api.get(this.$config.TAX_API_URL + '/emploment-categories');
+        switch (empCat.status) {
+            case 200:
+                this.employmentCategories = empCat.data.data.map((x) => {
+                    return {
+                        id: x.id,
+                        text: x.attributes.text,
+                        value: x.attributes.value,
+                    };
+                });
+                break;
+        }
+    },
     created() {},
+    data() {
+        return {
+            selectedInd: 1,
+            employmentCategories: [],
+        };
+    },
     methods: {
         async submit() {
             this.$nuxt.$emit('loader', true);

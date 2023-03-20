@@ -1,6 +1,6 @@
 <template>
     <main class="bg-gradient-to-b from-white to-slate-100 pb-12">
-        <section class="bg-black relative">
+        <section class="bg-accent-900 relative">
             <!-- <div class="absolute inset-0 -z-0 after:bg-black after:absolute after:inset-0 after:opacity-70 after:sm:opacity-0">
                 <img src="https://uktaxreclaim-98axs.ondigitalocean.app/images/hero-2.webp" class="object-center object-cover w-full h-full" alt="" />
             </div> -->
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div>
-                            <nuxt-link to="/update/decision" class="btn-submit w-full block text-center">View My Offer</nuxt-link>
+                            <nuxt-link to="/loan/update/decision" class="btn-submit w-full block text-center">View My Offer</nuxt-link>
                         </div>
                     </div>
                     <div class="container flex justify-center">

@@ -145,12 +145,16 @@ export default {
                 header: {
                     affId: '',
                 },
+                params: {
+                    goalId: state.params.goalId,
+                    offerId: state.params.offerId,
+                    clickId: state.params.clickId,
+                },
                 title: state.details.title.toLowerCase(),
                 firstName: state.details.firstName,
                 lastName: state.details.lastName,
                 email: state.details.email,
                 mobile: state.details.mobile,
-                nationalInsurance: state.nationalInsurance,
                 ip: state.header.ip,
                 userAgent: state.header.userAgent,
                 nationalInsurance: state.details.nationalInsurance,

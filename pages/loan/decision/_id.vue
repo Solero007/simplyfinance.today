@@ -1,7 +1,7 @@
 <template>
-    <main class="bg-gradient-to-b from-slate-50 to-slate-100 pb-12">
+    <main class="bg-gradient-to-b from-slate-50 to-slate-100">
         <div v-if="$fetchState.pending">
-            <section class="bg-black relative">
+            <section class="bg-accent-900/90 relative">
                 <div class="container text-center py-12 relative z-0 text-white">
                     <div class="flex justify-center">
                         <div class="w-full sm:max-w-4xl lg:max-w-5xl">
@@ -17,8 +17,8 @@
                 </div>
             </section>
         </div>
-        <div v-else-if="!$fetchState.pending && isValid">
-            <section class="bg-black/90 text-white py-2 md:py-2 text-center">
+        <div v-else-if="!$fetchState.pending && isValid" class=" pb-12">
+            <section class="bg-accent-900/90 text-white py-2 md:py-2 text-center">
                 <div class="container">
                     <div class="text-xs sm:text-base md:text-lg leading-tight md:leading-normal font-semibold flex gap-3 items-center justify-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </section>
-            <section class="bg-black relative">
+            <section class="bg-accent-900 relative">
                 <!-- <div class="absolute inset-0 -z-0 after:bg-black after:absolute after:inset-0 after:opacity-70 after:sm:opacity-0">
                 <img src="https://theaccountancycloud.com/assets/images/sos-header-bg.webp" class="object-center object-cover w-full h-full" alt="" />
             </div> -->
@@ -60,10 +60,10 @@
             <section>
                 <div class="md:container">
                     <div class="flex justify-center items-center space-y-5 flex-col">
-                        <div class="card-form">
+                        <div class="card-form text-accent-900">
                             <div class="flex gap-4 justify-between items-center sm:items-start">
                                 <div>
-                                    <p class="font-bold text-accent-900 text-xl sm:text-xl md:text-2xl">Your Tax Relief Quote</p>
+                                    <p class="font-bold text-xl sm:text-xl md:text-2xl">Your Tax Relief Quote</p>
                                 </div>
                             </div>
                             <Form ref="start" name="start" key="start" v-slot="{ busy }" :submit="submit">
@@ -71,28 +71,32 @@
                                     <div class="space-y-4">
                                         <div class="space-y-2">
                                             <p>We've identified you could be due up to:</p>
-                                            <div class="rounded bg-accent/5 outline outline-4 outline-accent-400 py-4 px-6 text-3xl font-bold text-center">£{{ claimTotal }}</div>
+                                            <div class="rounded bg-accent/5 outline outline-2 outline-accent-400 py-4 px-12 text-3xl font-bold text-center">£{{ claimTotal }}</div>
                                             <p class="text-sm font-normal">* Average payout in 21 days</p>
-                                        </div>
-                                    </div>
-                                    <div class="space-y-4">
-                                        <p class="text-base sm:text-lg font-bold">Select the years you worked at least 1 day from home:</p>
-                                        <div v-for="(item, i) of claims" :key="item.period" class="space-y-4">
-                                            <div class="relative flex items-center">
-                                                <div class="flex h-6 items-center">
-                                                    <input :id="item.meta.period" :name="item.name" type="checkbox" v-model="item.hasWorked" :true-value="true" :false-value="false" class="checkbox" />
-                                                </div>
-                                                <div class="ml-3">
-                                                    <label :for="item.meta.period" class="font-bold text-sm sm:text-base uppercase"
-                                                        >{{ item.name }} <small class="ml-2 text-slate-800">{{ item.meta.period }}</small></label
-                                                    >
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </Form>
                         </div>
+
+                        <div class="card-form">
+                            <div class="space-y-4">
+                                <p class="text-base sm:text-lg font-bold">Select the years you worked at least 1 day from home:</p>
+                                <div v-for="(item, i) of claims" :key="item.period" class="space-y-4">
+                                    <div class="relative flex items-center">
+                                        <div class="flex h-6 items-center">
+                                            <input :id="item.meta.period" :name="item.name" type="checkbox" v-model="item.hasWorked" :true-value="true" :false-value="false" class="checkbox" />
+                                        </div>
+                                        <div class="ml-3">
+                                            <label :for="item.meta.period" class="font-bold text-sm sm:text-base uppercase"
+                                                >{{ item.name }} <small class="ml-2 text-slate-800">{{ item.meta.period }}</small></label
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div v-if="periodCount >= 1" class="card-form">
                             <div class="flex gap-4 justify-between items-center sm:items-start">
                                 <div>
@@ -177,29 +181,28 @@
                         <div v-else class="card-form">
                             <div class="bg-rose-100 rounded-xl p-8 text-center space-y-4">
                                 <p class="text-xl sm:text-2xl font-semibold leading-tight">Unfortunately, it appears based on this answer you do not qualify for working from home tax relief.</p>
-                                <nuxt-link to="/offers" class="bg-black rounded-lg py-4 text-lg font-semibold inline-block px-10 text-white">View More Offers</nuxt-link>
+                                <nuxt-link to="/offers/alt" class="bg-black rounded-lg py-4 text-lg font-semibold inline-block px-10 text-white">View More Offers</nuxt-link>
                             </div>
                         </div>
                     </div>
-                </div>
-                {{ signature }}
+                </div> 
             </section>
         </div>
         <div v-else>
-            <section class="bg-black relative">
+            <section class="bg-accent-900 relative">
                 <div class="container text-center py-12 relative z-0 text-white">
                     <div class="flex justify-center">
                         <div class="w-full sm:max-w-4xl lg:max-w-5xl">
                             <div class="space-y-3 sm:space-y-4">
-                                <div class="space-y-4 sm:space-y-2">
+                                <div class="space-y-4 sm:space-y-5">
                                     <div class="space-y-4">
                                         <span class="mx-auto">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-28 h-28 mx-auto text-rose-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-28 h-28 mx-auto text-accent-300">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         </span>
                                         <p class="text-xl sm:text-3xl md:text-4xl font-bold tracking-tight leading-snug md:leading-tight">Sorry, we could not find your application</p>
-                                        <nuxt-link to="/offers/alt" class="bg-white rounded-lg py-4 text-lg font-semibold inline-block px-10 text-black">View More Offers</nuxt-link>
+                                        <nuxt-link to="/offers/alt" class="bg-white hover:opacity-80 transition-all rounded py-4 !mt-8 text-lg font-semibold inline-block px-10 text-black">View More Offers</nuxt-link>
                                     </div>
                                 </div>
                             </div>
